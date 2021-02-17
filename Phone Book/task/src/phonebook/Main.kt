@@ -65,6 +65,32 @@ fun <T, K> jumpSearch(list: List<T>, toFind: List<K>, getter: (T) -> K): List<T>
     return found
 }
 
+fun <T, K> binarySearch(list: List<T>, toFind: List<K>, getter: (T) -> K): List<T>
+        where T : Comparable<T>,
+              K : Comparable<K> {
+    val results = mutableListOf<T>()
+    for (k in toFind) {
+        var low = 0
+        var hi = list.size - 1
+        var mid = (low + hi) / 2
+        var tmp: K
+        while (low < hi) {
+            tmp = getter(list[mid])
+            if (k < tmp) {
+                hi = mid
+                mid = (low + hi) / 2
+            } else if (k > tmp) {
+                low = mid
+                mid = (low + hi) / 2
+            } else if (k == tmp) {
+                results += list[mid]
+                break
+            }
+        }
+    }
+    return results
+}
+
 fun <T> bubbleSort(list: MutableList<T>, timeout: Long): Boolean
         where T : Comparable<T> {
     var tmp: T
@@ -91,9 +117,29 @@ fun <T> bubbleSort(list: MutableList<T>, timeout: Long): Boolean
         }
         end--
     }
-    val file = File(SORTED_DIRECTORY)
-    file.writeText(list.joinToString("\n"))
     return timedOut
+}
+
+fun <T> quickSort(list: MutableList<T>, low: Int, hi: Int)
+        where T : Comparable<T> {
+    if (low < hi) {
+        val pivot = list[floor((hi + low) / 2.0).toInt()]
+        var i = low - 1
+        var j = hi + 1
+        var tmp: T
+        while (true) {
+            do i += 1 while (list[i] < pivot)
+            do j -= 1 while (list[j] > pivot)
+            if (i >= j) break
+            tmp = list[i]
+            list[i] = list[j]
+            list[j] = tmp
+        }
+        quickSort(list, low, j)
+        quickSort(list, j + 1, hi)
+    }
+
+
 }
 
 fun convertMilliseconds(time: Long): LongArray {
@@ -132,12 +178,30 @@ fun doBubbleSortAndJumpSearch(directory: List<Record>, toFind: List<String>, tim
         println("Found ${results.size} / ${toFind.size} entries. ${buildTimeString(resultTiming + sortTiming)}")
         println("Sorting time: ${buildTimeString(sortTiming)}")
         println("Searching time: ${buildTimeString(resultTiming)}")
+        val file = File(SORTED_DIRECTORY)
+        file.writeText(dir.joinToString("\n"))
     } else {
         val (results, resultTiming) = timeIt { simpleSearch(directory, toFind, Record.Query::nameEquals) }
         println("Found ${results.size} / ${toFind.size} entries. ${buildTimeString(resultTiming + sortTiming)}")
         println("Sorting time: ${buildTimeString(sortTiming)} - STOPPED, moved to linear search")
         println("Searching time: ${buildTimeString(resultTiming)}")
     }
+}
+
+fun doQuickSortAndBinarySearch(directory: List<Record>, toFind: List<String>) {
+    println("Start Searching (quick sort + binary search)...")
+    val dir = directory.toMutableList()
+    val (_, sortTiming) = timeIt { quickSort(dir, 0, dir.size - 1) }
+    val file = File(SORTED_DIRECTORY)
+    if (!file.exists()) file.writeText(dir.joinToString("\n"))
+    val (results, resultTiming) = timeIt {
+        binarySearch(
+            dir,
+            toFind.map { it.toLowerCase() }) { it.name.toLowerCase() }
+    }
+    println("Found ${results.size} / ${toFind.size} entries. ${buildTimeString(resultTiming + sortTiming)}")
+    println("Sorting time: ${buildTimeString(sortTiming)}")
+    println("Searching time: ${buildTimeString(resultTiming)}")
 }
 
 fun main() {
@@ -148,4 +212,6 @@ fun main() {
     val timeout = doSimpleSearch(directory, toFind)
     println()
     doBubbleSortAndJumpSearch(directory, toFind, timeout * 10)
+    println()
+    doQuickSortAndBinarySearch(directory, toFind)
 }
