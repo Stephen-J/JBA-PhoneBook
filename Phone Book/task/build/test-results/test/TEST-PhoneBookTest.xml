@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="PhoneBookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-02-17T02:55:47" hostname="DESKTOP-AAG2RLD" time="60.717">
+<testsuite name="PhoneBookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-02-17T03:44:52" hostname="DESKTOP-AAG2RLD" time="62.146">
   <properties/>
-  <testcase name="start" classname="PhoneBookTest" time="60.717"/>
+  <testcase name="start" classname="PhoneBookTest" time="62.146"/>
   <system-out><![CDATA[?[1;31m
 Start test 1?[0m
 Start Searching (linear search)...
-Found 500 / 500 entries. Time taken: 0 min. 4 sec. 640 ms.
+Found 500 / 500 entries. Time taken: 0 min. 4 sec. 759 ms.
 
 Start Searching (bubble sort + jump search)...
-Found 500 / 500 entries. Time taken: 0 min. 51 sec. 695 ms.
-Sorting time: Time taken: 0 min. 46 sec. 476 ms. - STOPPED, moved to linear search
-Searching time: Time taken: 0 min. 5 sec. 219 ms.
+Found 500 / 500 entries. Time taken: 0 min. 52 sec. 711 ms.
+Sorting time: Time taken: 0 min. 47 sec. 620 ms. - STOPPED, moved to linear search
+Searching time: Time taken: 0 min. 5 sec. 91 ms.
 
 Start Searching (quick sort + binary search)...
-Found 500 / 500 entries. Time taken: 0 min. 3 sec. 853 ms.
-Sorting time: Time taken: 0 min. 3 sec. 850 ms.
-Searching time: Time taken: 0 min. 0 sec. 3 ms.
+Found 500 / 500 entries. Time taken: 0 min. 3 sec. 773 ms.
+Sorting time: Time taken: 0 min. 3 sec. 769 ms.
+Searching time: Time taken: 0 min. 0 sec. 4 ms.
+
+Start searching (hash table)...
+Found 500 / 500 entries. Time taken: 0 min. 0 sec. 365 ms.
+Creating time: Time taken: 0 min. 0 sec. 365 ms.
+Searching time: Time taken: 0 min. 0 sec. 0 ms.
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

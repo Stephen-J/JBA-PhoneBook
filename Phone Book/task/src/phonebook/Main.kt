@@ -204,6 +204,29 @@ fun doQuickSortAndBinarySearch(directory: List<Record>, toFind: List<String>) {
     println("Searching time: ${buildTimeString(resultTiming)}")
 }
 
+fun doHashtable(directory: List<Record>, toFind: List<String>) {
+    println("Start searching (hash table)...")
+    val (map, createTiming) = timeIt {
+        val map = hashMapOf<String, Record>()
+        for (record in directory) {
+            map[record.name.toLowerCase()] = record
+        }
+        map
+    }
+    val (results, resultTiming) = timeIt {
+        val results = mutableListOf<Record>()
+        var tmp : Record?
+        for (name in toFind) {
+            tmp = map[name.toLowerCase()]
+            if (tmp != null) results += tmp
+        }
+        results.toList()
+    }
+    println("Found ${results.size} / ${toFind.size} entries. ${buildTimeString(resultTiming + createTiming)}")
+    println("Creating time: ${buildTimeString(createTiming)}")
+    println("Searching time: ${buildTimeString(resultTiming)}")
+}
+
 fun main() {
     val directoryFile = File(DIRECTORY_NAME)
     val findFile = File(FIND_NAME)
@@ -214,4 +237,6 @@ fun main() {
     doBubbleSortAndJumpSearch(directory, toFind, timeout * 10)
     println()
     doQuickSortAndBinarySearch(directory, toFind)
+    println()
+    doHashtable(directory, toFind)
 }

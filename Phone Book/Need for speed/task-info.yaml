@@ -71,8 +71,33 @@ files:
     \ }\n}\n"
   learner_created: false
 feedback_link: https://hyperskill.org/projects/86/stages/478/implement#comment
-status: Solved
+status: Failed
 feedback:
-  message: Congratulations!
-  time: Wed, 17 Feb 2021 02:56:48 UTC
-record: -1
+  message: |-
+    Wrong answer in test #1
+
+    Your output should contain 7 timer outputs, but found 10
+
+    Please find below the output of your program during this failed test.
+
+    ---
+
+    Start Searching (linear search)...
+    Found 500 / 500 entries. Time taken: 0 min. 4 sec. 698 ms.
+
+    Start Searching (bubble sort + jump search)...
+    Found 500 / 500 entries. Time taken: 0 min. 51 sec. 938 ms.
+    Sorting time: Time taken: 0 min. 47 sec. 25 ms. - STOPPED, moved to linear search
+    Searching time: Time taken: 0 min. 4 sec. 913 ms.
+
+    Start Searching (quick sort + binary search)...
+    Found 500 / 500 entries. Time taken: 0 min. 3 sec. 793 ms.
+    Sorting time: Time taken: 0 min. 3 sec. 790 ms.
+    Searching time: Time taken: 0 min. 0 sec. 3 ms.
+
+    Start searching (hash table)...
+    Found 500 / 500 entries. Time taken: 0 min. 0 sec. 391 ms.
+    Creating time: Time taken: 0 min. 0 sec. 391 ms.
+    Searching time: Time taken: 0 min. 0 sec. 0 ms.
+  time: Wed, 17 Feb 2021 03:42:05 UTC
+record: 3
